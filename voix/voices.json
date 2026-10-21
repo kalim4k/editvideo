@@ -1,0 +1,19 @@
+{
+  "model_id": "eleven_v4",
+  "language": "fr",
+  "voices": {
+    "toi": { "name": "voix kalim (ton clone)", "voice_id": "JshWLpyvWTJtQd6RFtdm" },
+    "claude": { "name": "Julien - calme et posé", "voice_id": "eOwAMwUJEGkP44SKOXIH" }
+  },
+  "alternatives": {
+    "toi": [
+      { "name": "Victor", "voice_id": "GPAQQPp9dazaB2bl4zg9" },
+      { "name": "lecoderauchapea", "voice_id": "xtmeHyYZ6tHjzlbl3bQ9" }
+    ],
+    "claude": [
+      { "name": "Hugo - chaleureux", "voice_id": "IbbR6Av0dWuQJS0b8JVT" },
+      { "name": "Marcel - voisin sympa", "voice_id": "kENkNtk0xyzG09WW40xE" },
+      { "name": "Nova - grave, très calme", "voice_id": "BVBq6HVJVdnwOMJOqvy9" }
+    ]
+  }
+}

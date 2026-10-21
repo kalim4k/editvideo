@@ -1,0 +1,14 @@
+{
+  "name": "studio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sheet": "node scripts/render-sheet.mjs",
+    "voix": "python tools/episode.py",
+    "video": "node scripts/render-video.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "^23.11.1",
+    "three": "^0.170.0"
+  }
+}

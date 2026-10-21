@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Fiches personnages</title>
+<style>
+  @font-face { font-family: Pixelify; src: url(../fonts/PixelifySans.ttf); font-weight: 400 700; }
+  @font-face { font-family: Poppins; src: url(../fonts/Poppins-ExtraBold.ttf); font-weight: 800; }
+  @font-face { font-family: Inter; src: url(../fonts/Inter.ttf); font-weight: 100 900; }
+  :root { --bg: #161a24; --card: #1f2431; --line: #2d3446; --blue: #4a8fe8; --text: #eef0f6; --muted: #98a0b4; --orange: #f79a67; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #0e1118; font-family: Inter, "Segoe UI", sans-serif; color: var(--text); }
+  .sheet { width: 1920px; padding: 56px 64px 64px; background: radial-gradient(ellipse at 30% 0%, #222a3c 0%, var(--bg) 60%); }
+  .kicker { font-family: Pixelify; font-weight: 700; font-size: 22px; color: var(--blue); letter-spacing: 2px; }
+  h1 { font-family: Poppins; font-size: 72px; margin: 10px 0 4px; }
+  h1 span { color: var(--orange); }
+  .sub { color: var(--muted); font-size: 20px; }
+  h2 { font-family: Pixelify; font-weight: 700; font-size: 24px; color: var(--blue); margin: 40px 0 16px; letter-spacing: 1px; }
+  h2 small { font-family: Inter; font-weight: 400; color: var(--muted); font-size: 16px; letter-spacing: 0; margin-left: 10px; }
+  .row { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+  .card { background: linear-gradient(#262c3b, #1f2431); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .card img { display: block; image-rendering: pixelated; }
+  .card .label { padding: 9px 13px 11px; font-weight: 600; font-size: 16px; border-top: 1px solid var(--line); }
+  .mock { width: 1080px; height: 1920px; position: relative; overflow: hidden; background: #000; }
+  .mock .frame { position: absolute; inset: 0; }
+  .mock .subtitle { position: absolute; left: 90px; right: 90px; top: 1150px; text-align: center; font-weight: 600; font-size: 46px;
+                    line-height: 1.2; text-shadow: 0 2px 6px rgba(0, 0, 0, .7), 0 0 2px rgba(0, 0, 0, .8);
+                    -webkit-text-stroke: 6px rgba(0, 0, 0, .5); paint-order: stroke fill; }
+  .subtitle.toi { color: #fdf7f8; }
+  .subtitle.claude { color: var(--orange); }
+</style>
+<script type="importmap">
+{ "imports": { "three": "../node_modules/three/build/three.module.js", "three/addons/": "../node_modules/three/examples/jsm/" } }
+</script>
+</head>
+<body>
+<section id="sheet-toi" class="sheet"></section>
+<section id="sheet-claude" class="sheet"></section>
+<section id="plan-large" class="mock"></section>
+<section id="insert-ecran" class="mock"></section>
+<section id="gros-plan-claude" class="mock"></section>
+<section id="gros-plan-toi" class="mock"></section>
+<section id="table-large" class="mock"></section>
+<section id="table-toi" class="mock"></section>
+<section id="table-claude" class="mock"></section>
+<section id="table-tableau" class="mock"></section>
+<script type="module" src="./sheet.js"></script>
+</body>
+</html>

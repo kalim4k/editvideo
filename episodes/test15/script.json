@@ -1,0 +1,26 @@
+{
+  "titre": "Test 15 s : le bug de la parenthèse",
+  "gap": 0.3,
+  "tail": 1.0,
+  "lines": [
+    { "who": "toi", "say": "[tired] Claude, tu peux corriger ce bug ?",
+      "shot": "large", "toi": "fatigue", "claude": "neutre", "toiLook": "claude", "claudeLook": "ecran" },
+    { "who": "claude", "say": "[calm] Ligne 10… Il manque une parenthèse.",
+      "shot": "ecran", "cues": [{ "word": "parenthèse", "screen": "fix" }] },
+    { "who": "claude", "say": "[concerned] Mais… ça va, toi ? Tu as l'air épuisé.",
+      "shot": "claude", "claude": "inquiet", "claudeLook": "toi", "toiLook": "ecran", "toi": "blase" },
+    { "who": "toi", "say": "[flatly] Je vais bien. Corrige juste.",
+      "shot": "toi", "toi": "blase" },
+    { "who": "claude", "say": "[cheerful] C'est déjà fait ! [gently] Tu veux en parler ?",
+      "shot": "claude", "claude": "content", "cues": [{ "word": "Tu", "claude": "inquiet" }] },
+    { "who": "toi", "say": "[deadpan] Non merci.",
+      "shot": "toi-serre", "toi": "blase" },
+    { "who": "claude", "say": "[whispering] Simple curiosité.",
+      "gapBefore": 3.3,
+      "before": { "shot": "recherche", "claudeLook": "ecran",
+        "search": { "query": "comment aider un humain qui « va bien »",
+          "suggestions": ["comment aider un humain qui « va bien »", "comment aider un humain têtu", "comment aider un humain qui ne dort plus"] } },
+      "shot": "claude", "claude": "malicieux", "claudeLook": "toi",
+      "then": { "delay": 0.25, "shot": "toi-serre", "toi": "choque", "toiLook": "claude" } }
+  ]
+}

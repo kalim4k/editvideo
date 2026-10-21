@@ -1,0 +1,20 @@
+# Secrets (ElevenLabs key)
+.env
+
+# Dependencies (npm install in studio/)
+node_modules/
+__pycache__/
+
+# Regenerable outputs (python studio/tools/episode.py, node studio/scripts/render-video.mjs)
+episodes/*/cache/
+episodes/*/stills/
+episodes/*/mix.wav
+episodes/*/*.partial.mp4
+studio/out/
+
+# Source media kept out of the repo: raw screen recordings (too large for GitHub, the AdSense
+# address bar shows the publisher ID), reference videos from other creators, photos and screenshots
+/*.mp4
+/*.png
+/*.jpg
+/*.jpeg
