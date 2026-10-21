@@ -13,3 +13,6 @@ episodes/*/stills/
 episodes/*/mix.wav
 episodes/*/*.partial.mp4
 studio/out/
+
+# Réglages Claude Code propres à ce PC
+.claude/settings.local.json
