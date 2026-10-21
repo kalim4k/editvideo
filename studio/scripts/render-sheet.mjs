@@ -7,7 +7,9 @@ import puppeteer from 'puppeteer-core';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const OUT = path.resolve(ROOT, '..', 'personnages');
-const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+// Chrome: CHROME_PATH if set, else the first one installed (the Windows PC, then Linux machines).
+const CHROME = [process.env.CHROME_PATH, 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+  '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'].find((p) => p && fs.existsSync(p));
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.png': 'image/png', '.ttf': 'font/ttf', '.mp3': 'audio/mpeg', '.wav': 'audio/wav' };
 
 export function serve(root) {
@@ -28,7 +30,9 @@ export function launch() {
   return puppeteer.launch({
     executablePath: CHROME,
     headless: true,
-    args: ['--use-angle=d3d11', '--enable-gpu', '--ignore-gpu-blocklist', '--enable-unsafe-swiftshader'],
+    args: process.platform === 'win32'
+      ? ['--use-angle=d3d11', '--enable-gpu', '--ignore-gpu-blocklist', '--enable-unsafe-swiftshader']
+      : ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--no-sandbox'], // no GPU on cloud machines
   });
 }
 

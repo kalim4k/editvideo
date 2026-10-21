@@ -1,5 +1,7 @@
-# Secrets (ElevenLabs key)
+# Secrets (ElevenLabs, KIE AI keys...): never in git, set them as environment variables elsewhere
 .env
+.env.*
+*.env
 
 # Dependencies (npm install in studio/)
 node_modules/
@@ -11,10 +13,3 @@ episodes/*/stills/
 episodes/*/mix.wav
 episodes/*/*.partial.mp4
 studio/out/
-
-# Source media kept out of the repo: raw screen recordings (too large for GitHub, the AdSense
-# address bar shows the publisher ID), reference videos from other creators, photos and screenshots
-/*.mp4
-/*.png
-/*.jpg
-/*.jpeg

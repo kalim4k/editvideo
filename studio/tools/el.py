@@ -1,18 +1,23 @@
 """Minimal ElevenLabs client. Reads the key from the project .env, never prints it."""
 import json
+import os
 import sys
 import urllib.parse
 import urllib.request
 
-ENV = r"C:\Users\SURFACE\CLAUDE VIDEO EDIT\.env"
+ENV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".env")
 BASE = "https://api.elevenlabs.io"
 
 
 def key():
-    for line in open(ENV, encoding="utf-8-sig"):
-        if line.strip().startswith("ELEVENLABS_API_KEY"):
-            return line.split("=", 1)[1].strip().strip('"').strip("'")
-    raise SystemExit("ELEVENLABS_API_KEY missing in .env")
+    """ELEVENLABS_API_KEY from the environment (cloud sessions, the .env is not in git), else from the project .env."""
+    if os.environ.get("ELEVENLABS_API_KEY"):
+        return os.environ["ELEVENLABS_API_KEY"].strip()
+    if os.path.exists(ENV):
+        for line in open(ENV, encoding="utf-8-sig"):
+            if line.strip().startswith("ELEVENLABS_API_KEY"):
+                return line.split("=", 1)[1].strip().strip('"').strip("'")
+    raise SystemExit("ELEVENLABS_API_KEY missing (environment variable or .env)")
 
 
 def call(method, path, params=None, body=None, raw=False):
