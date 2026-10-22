@@ -256,21 +256,34 @@ def main(ep):
         x = decode(mp3)
         a, b = voiced_bounds(x)
         a, b = max(0, a - int(0.04 * SR)), min(len(x), b + int(0.12 * SR))
-        gap = line.get("gapBefore", script["gap"]) if i else 0
+        interrupts = i and "cut" in script["lines"][i - 1]  # talks over the end of the cut line
+        gap = line.get("gapBefore", -0.18 if interrupts else script["gap"]) if i else 0
         t += gap
         offset = t - a / SR
         words = [{"w": w["w"], "start": round(w["start"] + offset, 3), "end": round(w["end"] + offset, 3)}
                  for w in words_of(alignment)]
-        if "cut" in line:  # interrupted: the voice stops partway through a word ("expéri—"), the next line talks over it
+        if "cut" in line:
+            # Interrupted mid-flow, like a cut in the edit: the voice stops inside a word that is followed by more
+            # words (never heard), at a loud instant of that word so it sounds chopped, not finished.
             target = line["cut"]["word"]
-            k, hit = next((k, w) for k, w in enumerate(words) if norm(w["w"]).endswith(norm(target)))  # "l'expérience."
+            k, hit = next((k, w) for k, w in enumerate(words) if norm(w["w"]).endswith(norm(target)))  # "l'expérience,"
+            if k == len(words) - 1:
+                print(f"  ATTENTION ligne {i + 1} : « {target} » est le dernier mot, la coupe ne s'entendra pas")
             keep = line["cut"].get("keep", 0.5)
-            stop = hit["start"] + (hit["end"] - hit["start"]) * keep
-            b = min(b, int((stop - offset) * SR))
-            letters = hit["w"].lower().rfind(target.lower()) + max(1, round(len(target) * keep))
+            lo = int((hit["start"] + (hit["end"] - hit["start"]) * keep * 0.7 - offset) * SR)
+            hi = int((hit["start"] + (hit["end"] - hit["start"]) * min(1, keep * 1.3) - offset) * SR)
+            hop = int(0.01 * SR)
+            level = [float(np.sqrt(np.mean(x[j:j + hop] ** 2))) for j in range(lo, max(hi, lo + hop), hop)]
+            b = lo + hop * int(np.argmax(level)) + hop // 2
+            voiced = np.sqrt(np.convolve(x[a:b] ** 2, np.ones(hop) / hop, mode="valid"))
+            ratio = max(level) / (np.median(voiced[voiced > 0.01]) + 1e-9)
+            print(f"  coupe ligne {i + 1} dans « {target} » : niveau {ratio:.2f} x la voix" + ("" if ratio > 0.5 else "  ATTENTION creux"))
+            stop = b / SR + offset
+            frac = np.clip((stop - hit["start"]) / max(hit["end"] - hit["start"], 1e-3), 0.15, 0.9)
+            letters = hit["w"].lower().rfind(target.lower()) + max(1, round(len(target) * frac))
             words = words[:k] + [{"w": hit["w"][:letters] + "—", "start": hit["start"], "end": round(stop, 3)}]
             x = x.copy()
-            fade = int(0.012 * SR)
+            fade = int(0.006 * SR)
             x[b - fade:b] *= np.linspace(1, 0, fade)
         before = line.get("before")
         if before:
