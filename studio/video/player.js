@@ -297,15 +297,62 @@ function subtitleAt(t) {
     for (const [k, sub] of subs.entries()) {
       const from = (k ? sub.start : ln.start) - 0.1;
       const to = subs[k + 1] ? subs[k + 1].start - 0.1 : stop;
-      if (t >= from && t < to) return { text: sub.text, who: ln.who, from };
+      if (t >= from && t < to) return { text: sub.text, who: ln.who, from, punch: ln.punch };
     }
   }
   return null;
 }
 
+// Punch lines ("Silence !", "Plus vite !"): big yellow capitals in the middle of the frame, popping in.
+function drawPunch(ctx, t, sub) {
+  const u = THREE.MathUtils.clamp((t - sub.from) / 0.12, 0, 1);
+  const text = sub.text.toUpperCase();
+  ctx.save();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  let size = 128;
+  ctx.font = `800 ${size}px Poppins`;
+  while (ctx.measureText(text).width > 960 && size > 60) ctx.font = `800 ${(size -= 4)}px Poppins`;
+  ctx.translate(W / 2, SUB.top - 40);
+  ctx.scale(1.35 - 0.35 * smooth(u), 1.35 - 0.35 * smooth(u));
+  ctx.rotate(-0.04);
+  ctx.globalAlpha = u;
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = 18; ctx.strokeStyle = '#111';
+  ctx.strokeText(text, 0, 0);
+  ctx.fillStyle = '#ffd23c';
+  ctx.fillText(text, 0, 0);
+  ctx.restore();
+}
+
+// Call-to-action card ({ title, sub }) from the latest "card" event, sliding up from the bottom.
+function drawCard(ctx, t) {
+  const ev = tl.events.findLast((e) => e.t <= t && 'card' in e);
+  if (!ev?.card) return;
+  const u = smooth(THREE.MathUtils.clamp((t - ev.t) / 0.3, 0, 1));
+  const y = 1300 + (1 - u) * 260, w = 920, h = ev.card.sub ? 250 : 170; // under the subtitle, clear of the faces
+  ctx.save();
+  ctx.globalAlpha = u;
+  ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 30; ctx.shadowOffsetY = 8;
+  ctx.fillStyle = '#ffd23c';
+  ctx.beginPath(); ctx.roundRect((W - w) / 2, y, w, h, 36); ctx.fill();
+  ctx.shadowColor = 'transparent';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#111';
+  ctx.font = '800 84px Poppins';
+  ctx.fillText(ev.card.title, W / 2, y + 92);
+  if (ev.card.sub) { ctx.font = '600 44px Inter'; ctx.fillText(ev.card.sub, W / 2, y + 190); }
+  // a bouncing arrow pointing down to the comments
+  const ay = y + h + 40 + Math.abs(Math.sin(t * 5)) * 22;
+  ctx.fillStyle = '#ffd23c'; ctx.strokeStyle = '#111'; ctx.lineWidth = 8; ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.moveTo(W / 2 - 50, ay); ctx.lineTo(W / 2 + 50, ay); ctx.lineTo(W / 2, ay + 60); ctx.closePath();
+  ctx.stroke(); ctx.fill();
+  ctx.restore();
+}
+
 function drawSubtitle(ctx, t) {
   const sub = subtitleAt(t);
   if (!sub) return;
+  if (sub.punch) return drawPunch(ctx, t, sub);
   ctx.save();
   ctx.font = `600 ${SUB.size}px Inter`;
   ctx.textAlign = 'center';
@@ -352,9 +399,11 @@ window.renderFrame = async (f, type = 'image/png') => {
   const ctx = out.getContext('2d');
   ctx.drawImage(renderer.domElement, 0, 0);
   drawSubtitle(ctx, t);
+  drawCard(ctx, t);
   return out.toDataURL(type, 0.95);
 };
 
 await document.fonts.load(`600 ${SUB.size}px Inter`);
+await document.fonts.load('800 100px Poppins');
 window.__info = { frames: tl.frames, fps: tl.fps, duration: tl.duration };
 window.__ready = true;

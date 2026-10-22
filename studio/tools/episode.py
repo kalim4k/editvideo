@@ -235,7 +235,7 @@ def board_timeline(ep, media, events, duration, sfx):
 
 # ------------------------------------------------------------------------------------------------ main
 
-DIRECTION = ("toi", "claude", "toiLook", "claudeLook", "board", "pointer", "sfx")
+DIRECTION = ("toi", "claude", "toiLook", "claudeLook", "board", "pointer", "sfx", "card")
 SFX = {"ding": (ding, 0.35), "cash": (cash, 0.4), "whoosh": (whoosh, 0.25), "typing": (lambda: typing(4.5), 0.18)}
 
 
@@ -261,6 +261,17 @@ def main(ep):
         offset = t - a / SR
         words = [{"w": w["w"], "start": round(w["start"] + offset, 3), "end": round(w["end"] + offset, 3)}
                  for w in words_of(alignment)]
+        if "cut" in line:  # interrupted: the voice stops partway through a word ("expéri—"), the next line talks over it
+            target = line["cut"]["word"]
+            k, hit = next((k, w) for k, w in enumerate(words) if norm(w["w"]).endswith(norm(target)))  # "l'expérience."
+            keep = line["cut"].get("keep", 0.5)
+            stop = hit["start"] + (hit["end"] - hit["start"]) * keep
+            b = min(b, int((stop - offset) * SR))
+            letters = hit["w"].lower().rfind(target.lower()) + max(1, round(len(target) * keep))
+            words = words[:k] + [{"w": hit["w"][:letters] + "—", "start": hit["start"], "end": round(stop, 3)}]
+            x = x.copy()
+            fade = int(0.012 * SR)
+            x[b - fade:b] *= np.linspace(1, 0, fade)
         before = line.get("before")
         if before:
             pre = prev_end + 0.4
@@ -282,7 +293,8 @@ def main(ep):
             shots.append({"name": then["shot"], "t": round(end + then.get("delay", 0.3), 3)})
             events.append({"t": round(end + then.get("delay", 0.3), 3), **direction(then)})
         lines.append({"who": line["who"], "text": " ".join(w["w"] for w in words), "start": round(t, 3),
-                      "end": round(end, 3), "words": words, "subs": subtitle_chunks(words), "_audio": x[a:b]})
+                      "end": round(end, 3), "words": words, "subs": subtitle_chunks(words), "_audio": x[a:b],
+                      **({"punch": True} if line.get("punch") else {})})
         prev_end = t = end
     shots.sort(key=lambda s: s["t"])
     shots = [s for k, s in enumerate(shots) if k == 0 or s["name"] != shots[k - 1]["name"]]  # same shot continues

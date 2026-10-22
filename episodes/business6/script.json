@@ -1,0 +1,333 @@
+{
+  "titre": "Claude, je veux être plus riche que mon voisin",
+  "set": "table",
+  "gap": 0.18,
+  "tail": 2.6,
+  "media": {
+    "claude": {
+      "image": "media/claude_accueil.jpg"
+    },
+    "nuit": {
+      "video": "../../Enregistrement 2026-10-21 165720.mp4",
+      "crop": "iw:1524:0:196",
+      "audio": 0.12
+    },
+    "adsense": {
+      "image": "media/adsense_accueil.jpg"
+    },
+    "liasses": {
+      "image": "media/liasses.jpg"
+    }
+  },
+  "lines": [
+    {
+      "who": "toi",
+      "say": "[shouting] Claude ! Mon voisin vend des formations à cinq cent mille francs. Il s'est acheté une Prado ! [frustrated] Je veux pareil !",
+      "shot": "toi-serre",
+      "toi": "enerve",
+      "claude": "surpris",
+      "toiLook": "claude",
+      "claudeLook": "toi",
+      "board": "claude",
+      "cues": [
+        {
+          "word": "Il",
+          "shot": "large"
+        },
+        {
+          "word": "Je",
+          "shot": "toi-serre"
+        }
+      ]
+    },
+    {
+      "who": "claude",
+      "say": "[calm] Je comprends. Mais pour vendre des formations, il faut d'abord de l'expérience.",
+      "shot": "claude",
+      "claude": "neutre",
+      "cut": {
+        "word": "expérience",
+        "keep": 0.5
+      }
+    },
+    {
+      "who": "toi",
+      "say": "[shouting] Silence !",
+      "punch": true,
+      "gapBefore": -0.06,
+      "shot": "toi-serre",
+      "toi": "enerve"
+    },
+    {
+      "who": "claude",
+      "say": "[meekly] D'accord, je me tais.",
+      "shot": "claude",
+      "claude": "blase"
+    },
+    {
+      "who": "toi",
+      "say": "[firmly] Crée-moi un business qui rapporte plus que mon voisin.",
+      "shot": "toi",
+      "toi": "neutre"
+    },
+    {
+      "who": "claude",
+      "say": "[thoughtful] Alors, il faudrait d'abord étudier ton marché.",
+      "shot": "claude",
+      "claude": "neutre",
+      "cut": {
+        "word": "marché",
+        "keep": 0.5
+      }
+    },
+    {
+      "who": "toi",
+      "say": "[shouting] Plus vite !",
+      "punch": true,
+      "gapBefore": -0.06,
+      "shot": "toi-serre",
+      "toi": "enerve"
+    },
+    {
+      "who": "claude",
+      "say": "[quickly] Un jeu vidéo.",
+      "shot": "claude",
+      "claude": "surpris"
+    },
+    {
+      "who": "toi",
+      "say": "[skeptical] Un jeu ? Frérot, je sais même pas coder.",
+      "shot": "toi",
+      "toi": "blase"
+    },
+    {
+      "who": "claude",
+      "say": "[mischievously] T'as pas besoin. Moi, je code.",
+      "shot": "claude",
+      "claude": "malicieux"
+    },
+    {
+      "who": "toi",
+      "say": "[firmly] Fais-le. Maintenant.",
+      "shot": "toi-serre",
+      "toi": "neutre"
+    },
+    {
+      "who": "claude",
+      "say": "[confident] C'est fait.",
+      "shot": "claude",
+      "claude": "content",
+      "then": {
+        "delay": 0.05,
+        "shot": "jeu",
+        "board": {
+          "media": "nuit",
+          "from": 1.6
+        },
+        "sfx": "whoosh",
+        "claudeLook": "tableau",
+        "toiLook": "tableau",
+        "pointer": [
+          0.42,
+          0.35
+        ]
+      }
+    },
+    {
+      "who": "claude",
+      "say": "[proud] Dernière Nuit. Un jeu de zombies en 3D, des vagues, un boss géant, trois armes.",
+      "gapBefore": 0.9,
+      "shot": "jeu",
+      "cut": {
+        "word": "armes",
+        "keep": 0.45
+      },
+      "cues": [
+        {
+          "word": "Un",
+          "board": {
+            "media": "nuit",
+            "from": 4.2
+          },
+          "pointer": [
+            0.5,
+            0.3
+          ]
+        },
+        {
+          "word": "boss",
+          "board": {
+            "media": "nuit",
+            "from": 52.0
+          },
+          "pointer": [
+            0.66,
+            0.5
+          ]
+        }
+      ]
+    },
+    {
+      "who": "toi",
+      "say": "[impatient] Ok, ok, ok. Et l'argent, il est où ?",
+      "gapBefore": -0.06,
+      "shot": "toi",
+      "toi": "enerve",
+      "toiLook": "claude",
+      "claudeLook": "toi",
+      "pointer": null
+    },
+    {
+      "who": "claude",
+      "say": "[confident] Google AdSense. Les gens jouent gratuitement, ils voient des pubs… et toi, t'es payé.",
+      "shot": "claude",
+      "claude": "content",
+      "cues": [
+        {
+          "word": "Les",
+          "shot": "adsense",
+          "board": "adsense",
+          "sfx": "cash",
+          "claudeLook": "tableau",
+          "toiLook": "tableau",
+          "pointer": [
+            0.36,
+            0.33
+          ]
+        }
+      ]
+    },
+    {
+      "who": "toi",
+      "say": "[impatient] Payé combien ?",
+      "shot": "toi-serre",
+      "toi": "enerve",
+      "toiLook": "claude",
+      "claudeLook": "toi",
+      "pointer": null
+    },
+    {
+      "who": "toi",
+      "say": "[shouting] Donne juste le chiffre !",
+      "punch": true,
+      "gapBefore": 0.1,
+      "shot": "toi-serre",
+      "toi": "enerve"
+    },
+    {
+      "who": "claude",
+      "say": "[calm] Des jeux comme ça : 553 euros en sept jours. Environ trois cent soixante mille francs CFA.",
+      "shot": "adsense",
+      "board": "adsense",
+      "claudeLook": "tableau",
+      "pointer": [
+        0.48,
+        0.33
+      ],
+      "cues": [
+        {
+          "word": "Environ",
+          "shot": "jeu",
+          "board": "liasses",
+          "sfx": "cash",
+          "pointer": [
+            0.5,
+            0.6
+          ]
+        }
+      ]
+    },
+    {
+      "who": "toi",
+      "say": "[shocked] Trois cent soixante mille ?! Mon voisin, il fait ça en un mois !",
+      "shot": "toi",
+      "toi": "choque",
+      "toiLook": "claude",
+      "claudeLook": "toi",
+      "pointer": null
+    },
+    {
+      "who": "claude",
+      "say": "[deadpan] Ton voisin, lui, il doit parler pendant des heures. Toi, c'est les zombies qui bossent.",
+      "shot": "claude",
+      "claude": "malicieux",
+      "cues": [
+        {
+          "word": "Toi",
+          "shot": "large"
+        }
+      ]
+    },
+    {
+      "who": "toi",
+      "say": "[excited] Crée-moi dix jeux. Non… cent jeux !",
+      "shot": "toi-serre",
+      "toi": "content"
+    },
+    {
+      "who": "claude",
+      "say": "[calm] Attention, il faut aussi des joueurs, donc TikTok, et la validation AdSense.",
+      "shot": "claude",
+      "claude": "inquiet",
+      "cut": {
+        "word": "AdSense",
+        "keep": 0.55
+      }
+    },
+    {
+      "who": "toi",
+      "say": "[shouting] Ta gueule !",
+      "punch": true,
+      "gapBefore": -0.06,
+      "shot": "toi-serre",
+      "toi": "enerve"
+    },
+    {
+      "who": "claude",
+      "say": "[meekly] D'accord, je me tais.",
+      "shot": "claude",
+      "claude": "blase"
+    },
+    {
+      "who": "toi",
+      "say": "[curious] Et vous… vous voulez que Claude vous crée votre jeu ?",
+      "gapBefore": 0.4,
+      "shot": "large",
+      "toi": "neutre",
+      "toiLook": "claude",
+      "claudeLook": "toi"
+    },
+    {
+      "who": "claude",
+      "say": "[whispering] Psst… Tape JEU en commentaire, et je t'envoie le guide détaillé.",
+      "shot": "claude",
+      "claude": "malicieux",
+      "cues": [
+        {
+          "word": "Tape",
+          "card": {
+            "title": "COMMENTE « JEU »",
+            "sub": "et reçois le guide détaillé"
+          }
+        }
+      ]
+    },
+    {
+      "who": "toi",
+      "say": "[deadpan] Ta gueule, Claude.",
+      "punch": true,
+      "shot": "toi-serre",
+      "toi": "blase"
+    },
+    {
+      "who": "claude",
+      "say": "[meekly] D'accord, je me tais.",
+      "shot": "claude",
+      "claude": "blase",
+      "then": {
+        "delay": 0.3,
+        "shot": "large"
+      }
+    }
+  ]
+}
