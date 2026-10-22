@@ -1,0 +1,175 @@
+{
+  "titre": "Claude, j'ai retiré mon argent !",
+  "set": "table",
+  "gap": 0.3,
+  "tail": 1.8,
+  "media": {
+    "liasses": {
+      "image": "media/liasses.jpg"
+    },
+    "total": {
+      "image": "media/liasses_total.jpg"
+    },
+    "nuit": {
+      "video": "../../Enregistrement 2026-10-21 165720.mp4",
+      "crop": "iw:1524:0:196",
+      "audio": 0.14
+    },
+    "adsense": {
+      "image": "media/adsense_accueil.jpg"
+    }
+  },
+  "lines": [
+    {
+      "who": "toi",
+      "say": "[shouting] Claude ! Regarde ça ! [excited] Je viens de retirer mon argent Google AdSense !",
+      "shot": "jeu",
+      "toi": "content",
+      "claude": "surpris",
+      "toiLook": "tableau",
+      "claudeLook": "tableau",
+      "board": "liasses",
+      "sfx": "cash",
+      "cues": [
+        {
+          "word": "Je",
+          "shot": "toi-serre",
+          "toiLook": "claude",
+          "claudeLook": "toi"
+        }
+      ]
+    },
+    {
+      "who": "claude",
+      "say": "[surprised] Sérieux ? Combien ?",
+      "shot": "claude",
+      "claude": "surpris"
+    },
+    {
+      "who": "toi",
+      "say": "[proudly] Trois cent cinquante-deux mille francs CFA.",
+      "shot": "toi",
+      "toi": "content",
+      "then": {
+        "delay": 0.1,
+        "shot": "jeu",
+        "board": "total",
+        "sfx": "cash",
+        "claudeLook": "tableau",
+        "toiLook": "tableau",
+        "pointer": [
+          0.25,
+          0.65
+        ]
+      }
+    },
+    {
+      "who": "claude",
+      "say": "[mischievously] Pas mal… pour un jeu que t'as même pas codé.",
+      "gapBefore": 1.2,
+      "shot": "claude",
+      "claude": "malicieux",
+      "claudeLook": "toi",
+      "toiLook": "claude",
+      "pointer": null
+    },
+    {
+      "who": "toi",
+      "say": "[laughing] C'est toi qui codes… mais c'est moi qui encaisse !",
+      "shot": "toi-serre",
+      "toi": "content"
+    },
+    {
+      "who": "claude",
+      "say": "[proud] Cet argent, c'est grâce au jeu de zombies que j'ai créé pour toi.",
+      "shot": "claude",
+      "claude": "content",
+      "cues": [
+        {
+          "word": "jeu",
+          "shot": "jeu",
+          "board": {
+            "media": "nuit",
+            "from": 1.6
+          },
+          "sfx": "whoosh",
+          "claudeLook": "tableau",
+          "toiLook": "tableau",
+          "pointer": [
+            0.42,
+            0.35
+          ]
+        }
+      ]
+    },
+    {
+      "who": "claude",
+      "say": "[confident] À chaque fois que les gens jouent à ton jeu, ils voient des pubs Google AdSense. C'est ça qui te rapporte de l'argent.",
+      "shot": "jeu",
+      "board": {
+        "media": "nuit",
+        "from": 8.0
+      },
+      "pointer": [
+        0.5,
+        0.45
+      ],
+      "cues": [
+        {
+          "word": "ils",
+          "shot": "adsense",
+          "board": "adsense",
+          "sfx": "cash",
+          "pointer": [
+            0.48,
+            0.33
+          ]
+        }
+      ]
+    },
+    {
+      "who": "toi",
+      "say": "[shocked] Attends… Chaque zombie tué, c'est de l'argent pour moi ?!",
+      "shot": "toi",
+      "toi": "choque",
+      "toiLook": "claude",
+      "claudeLook": "toi",
+      "pointer": null
+    },
+    {
+      "who": "claude",
+      "say": "[deadpan] Techniquement, c'est les pubs. Mais oui.",
+      "shot": "claude",
+      "claude": "blase"
+    },
+    {
+      "who": "toi",
+      "say": "[excited] Alors on en fait un deuxième ! Tout de suite !",
+      "shot": "toi-serre",
+      "toi": "content",
+      "board": "total"
+    },
+    {
+      "who": "claude",
+      "say": "[mischievously] D'accord. Mais d'abord… tu m'offres quoi, avec tes liasses ?",
+      "shot": "claude",
+      "claude": "malicieux"
+    },
+    {
+      "who": "toi",
+      "say": "[hesitant] Euh… un merci ?",
+      "shot": "toi-serre",
+      "toi": "blase"
+    },
+    {
+      "who": "claude",
+      "say": "[deadpan] Je m'en doutais.",
+      "shot": "claude",
+      "claude": "blase",
+      "then": {
+        "delay": 0.3,
+        "shot": "large"
+      }
+    }
+  ]
+}
